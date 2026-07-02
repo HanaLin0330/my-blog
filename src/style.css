@@ -18,10 +18,11 @@ html {
   --accent-strong: #aa8454;
   --accent-soft: rgba(215, 189, 146, 0.18);
   --accent-glow: rgba(215, 189, 146, 0.28);
-  --glass-bg: rgba(255, 250, 240, 0.44);
-  --glass-bg-strong: rgba(255, 250, 240, 0.58);
-  --glass-border: rgba(255, 248, 232, 0.64);
+  --glass-bg: rgba(255, 250, 240, 0.54);
+  --glass-bg-strong: rgba(255, 250, 240, 0.68);
+  --glass-border: rgba(255, 248, 232, 0.7);
   --glass-shadow: 0 22px 60px rgba(35, 27, 18, 0.14);
+  --nav-scrim: rgba(245, 234, 216, 0.62);
   --paper-bg: rgba(255, 252, 245, 0.96);
   --paper-border: rgba(116, 92, 60, 0.16);
   --page-overlay: rgba(21, 16, 10, 0.18);
@@ -42,10 +43,11 @@ html {
   --accent-strong: #f0d8b3;
   --accent-soft: rgba(232, 207, 170, 0.13);
   --accent-glow: rgba(232, 207, 170, 0.18);
-  --glass-bg: rgba(38, 34, 29, 0.42);
-  --glass-bg-strong: rgba(48, 42, 35, 0.56);
-  --glass-border: rgba(238, 215, 181, 0.24);
+  --glass-bg: rgba(38, 34, 29, 0.54);
+  --glass-bg-strong: rgba(48, 42, 35, 0.68);
+  --glass-border: rgba(238, 215, 181, 0.3);
   --glass-shadow: 0 22px 68px rgba(0, 0, 0, 0.28);
+  --nav-scrim: rgba(18, 15, 13, 0.72);
   --paper-bg: rgba(28, 25, 22, 0.96);
   --paper-border: rgba(238, 215, 181, 0.16);
   --page-overlay: rgba(3, 3, 4, 0.38);
@@ -106,35 +108,36 @@ img {
 
 .page-enter-active,
 .page-leave-active {
-  transition:
-    opacity var(--motion-base) var(--ease-out),
-    transform var(--motion-base) var(--ease-out),
-    filter var(--motion-base) var(--ease-out);
+  transition: transform var(--motion-base) var(--ease-out);
 }
 
 .page-enter-from {
-  opacity: 0;
-  transform: translateY(8px) scale(0.996);
-  filter: blur(4px);
+  transform: translate3d(0, 8px, 0) scale(0.996);
 }
 
 .page-leave-to {
-  opacity: 0;
-  transform: translateY(-4px) scale(0.998);
-  filter: blur(3px);
+  transform: translate3d(0, -4px, 0) scale(0.998);
 }
 
 @keyframes float-in {
   from {
-    opacity: 0;
-    transform: translateY(18px) scale(0.985);
-    filter: blur(10px);
+    transform: translate3d(0, 16px, 0) scale(0.99);
   }
   to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
   }
+}
+
+.about-card,
+.loading,
+.empty,
+.blog-card,
+.friend-card,
+.social-card,
+.pagination,
+.navbar {
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 @keyframes soft-pop {

@@ -84,6 +84,17 @@ onMounted(() => {
   animation: nav-reveal 620ms var(--ease-out) both;
 }
 
+.navbar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -26px;
+  height: 26px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--nav-scrim), transparent);
+}
+
 .nav-inner {
   max-width: 1200px;
   height: 56px;
@@ -201,14 +212,10 @@ onMounted(() => {
 
 @keyframes nav-reveal {
   from {
-    opacity: 0;
     transform: translateY(-18px);
-    filter: blur(10px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 }
 
