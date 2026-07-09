@@ -15,7 +15,7 @@ export const siteConfig = {
   ],
 
   friends: [
-    { name: '七下浅笑', url: 'https://julydate.com/', desc: '接触互联网的开始？' },
+    { name: '七夏浅笑', url: 'https://julydate.com/', desc: '接触互联网的开始？' },
     { name: '无名氏', url: '', desc: '占位符' },
     { name: '无名氏', url: '', desc: '同样是占位符' },
   ],
