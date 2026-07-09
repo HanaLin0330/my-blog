@@ -1,15 +1,18 @@
 <script setup>
 import { siteConfig } from '../config/site.js'
+import { Code, MessageCircle, Mail, MonitorPlay, Link2 } from '@lucide/vue'
 
-function getIcon(icon) {
-  const map = {
-    github: 'GH',
-    twitter: 'TW',
-    email: '@',
-    rss: 'RSS',
-    bilibili: 'BILI',
-  }
-  return map[icon] || 'LINK'
+// lucide 移除了品牌图标，使用最接近的通用图标
+const iconMap = {
+  github: Code,
+  twitter: MessageCircle,
+  email: Mail,
+  bilibili: MonitorPlay,
+  link: Link2,
+}
+
+function getIconComponent(iconName) {
+  return iconMap[iconName] || Link2
 }
 </script>
 
@@ -25,7 +28,13 @@ function getIcon(icon) {
         rel="noopener"
         class="social-card"
       >
-        <span class="social-icon">{{ getIcon(link.icon) }}</span>
+        <span class="social-icon">
+          <component
+            :is="getIconComponent(link.icon)"
+            :size="22"
+            :stroke-width="1.8"
+          />
+        </span>
         <span class="social-name">{{ link.name }}</span>
         <span class="social-arrow">→</span>
       </a>
@@ -68,7 +77,6 @@ function getIcon(icon) {
   transition:
     background var(--motion-base) var(--ease-out),
     border-color var(--motion-base) var(--ease-out),
-    box-shadow var(--motion-base) var(--ease-out),
     transform var(--motion-base) var(--ease-out);
   box-shadow: var(--glass-shadow);
   backdrop-filter: blur(16px) saturate(1.12);
@@ -76,7 +84,7 @@ function getIcon(icon) {
 }
 
 .social-card:hover {
-  transform: translateX(8px) scale(1.004);
+  transform: translateX(4px);
   background: var(--glass-bg-strong);
   border-color: rgba(215, 189, 146, 0.5);
 }
@@ -94,8 +102,6 @@ function getIcon(icon) {
   border-radius: var(--radius-sm);
   background: var(--accent-soft);
   color: var(--accent-strong);
-  font-size: 14px;
-  font-weight: 800;
   transition: transform var(--motion-fast) var(--ease-out);
 }
 
@@ -116,7 +122,32 @@ function getIcon(icon) {
 }
 
 @media (max-width: 640px) {
-  .social-card { padding: 18px 20px; }
-  .social-name { font-size: 16px; }
+  .social-list {
+    gap: 12px;
+  }
+
+  .social-card {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .social-card:hover {
+    transform: translateX(3px);
+  }
+
+  .social-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .social-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: 16px;
+  }
+
+  .social-arrow {
+    font-size: 16px;
+  }
 }
 </style>

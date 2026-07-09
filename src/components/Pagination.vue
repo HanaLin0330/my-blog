@@ -72,7 +72,6 @@ function goTo(page) {
   transition:
     background var(--motion-fast) var(--ease-out),
     color var(--motion-fast) var(--ease-out),
-    box-shadow var(--motion-fast) var(--ease-out),
     transform var(--motion-fast) var(--ease-out);
   user-select: none;
   box-shadow: 0 12px 28px rgba(35, 27, 18, 0.1);
@@ -84,19 +83,32 @@ function goTo(page) {
 .page-num:hover:not(.active) {
   background: var(--accent-soft);
   color: var(--text-strong);
-  transform: translateY(-2px);
-  box-shadow: 0 16px 34px rgba(35, 27, 18, 0.16);
+  transform: translateY(-1px);
 }
 
 .page-num.active {
   background: var(--accent);
   color: #21180f;
   font-weight: 600;
-  box-shadow: 0 14px 36px var(--accent-glow);
 }
 
 .page-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .pagination {
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .page-btn,
+  .page-num {
+    min-width: 40px;
+    padding: 9px 13px;
+    font-size: 14px;
+  }
 }
 </style>

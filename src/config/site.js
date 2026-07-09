@@ -11,12 +11,11 @@ export const siteConfig = {
     { name: 'GitHub', url: 'https://github.com/HanaLin0330', icon: 'github' },
     { name: 'Twitter', url: 'https://x.com/HanaLin0330', icon: 'twitter' },
     { name: 'Email', url: 'mailto:HanaLin0330@gmail.com', icon: 'email' },
-    { name: 'RSS', url: '/rss', icon: 'rss' },
     { name: 'Bilibili', url: 'https://space.bilibili.com/498796125', icon: 'bilibili' },
   ],
 
   friends: [
-    { name: 'M42', url: 'https://xcm42-orion.github.io/', desc: '我可爱的唯一的老婆' },
+    { name: '七下浅笑', url: 'https://julydate.com/', desc: '接触互联网的开始？' },
     { name: '无名氏', url: '', desc: '占位符' },
     { name: '无名氏', url: '', desc: '同样是占位符' },
   ],

@@ -1,20 +1,22 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { siteConfig } from '../config/site.js'
-import { fetchPosts } from '../utils/api.js'
+import { getPaginatedPosts } from '../utils/posts.js'
 import BlogCard from '../components/BlogCard.vue'
 import Pagination from '../components/Pagination.vue'
 
+const route = useRoute()
 const posts = ref([])
 const total = ref(0)
 const currentPage = ref(1)
 const loading = ref(true)
 const pageSize = siteConfig.postsPerPage
 
-async function loadPosts(page = 1) {
+function loadPosts(page = 1) {
   loading.value = true
   try {
-    const data = await fetchPosts(page, pageSize)
+    const data = getPaginatedPosts(page, pageSize)
     posts.value = data.posts
     total.value = data.total
     currentPage.value = data.page
@@ -30,7 +32,19 @@ function onPageChange(page) {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
-onMounted(() => loadPosts())
+// 从 URL query 恢复页码（支持浏览器前进/后退）
+onMounted(() => {
+  const page = parseInt(route.query.page) || 1
+  loadPosts(page)
+})
+
+// 监听路由 query 变化
+watch(() => route.query.page, (newPage) => {
+  const page = parseInt(newPage) || 1
+  if (page !== currentPage.value) {
+    loadPosts(page)
+  }
+})
 </script>
 
 <template>
@@ -87,5 +101,13 @@ onMounted(() => loadPosts())
   backdrop-filter: blur(16px) saturate(1.12);
   -webkit-backdrop-filter: blur(16px) saturate(1.12);
   animation: float-in 620ms var(--ease-out) both;
+}
+
+@media (max-width: 640px) {
+  .loading,
+  .empty {
+    padding: 36px 16px;
+    font-size: 15px;
+  }
 }
 </style>

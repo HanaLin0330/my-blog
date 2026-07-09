@@ -9,6 +9,9 @@ html {
 :root {
   color-scheme: light;
   --nav-height: 78px;
+  --page-x: 24px;
+  --page-top: 40px;
+  --page-bottom: 80px;
   --radius: 18px;
   --radius-sm: 14px;
   --text: #29231c;
@@ -22,16 +25,16 @@ html {
   --glass-bg-strong: rgba(255, 250, 240, 0.68);
   --glass-border: rgba(255, 248, 232, 0.7);
   --glass-shadow: 0 22px 60px rgba(35, 27, 18, 0.14);
-  --nav-scrim: rgba(245, 234, 216, 0.62);
+  --nav-bg: rgba(255, 250, 240, 0.9);
   --paper-bg: rgba(255, 252, 245, 0.96);
   --paper-border: rgba(116, 92, 60, 0.16);
   --page-overlay: rgba(21, 16, 10, 0.18);
   --code-bg: rgba(126, 101, 66, 0.12);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
-  --motion-fast: 180ms;
-  --motion-base: 220ms;
-  --motion-slow: 720ms;
+  --motion-fast: 140ms;
+  --motion-base: 180ms;
+  --motion-slow: 420ms;
 }
 
 :root[data-theme='dark'] {
@@ -47,7 +50,7 @@ html {
   --glass-bg-strong: rgba(48, 42, 35, 0.68);
   --glass-border: rgba(238, 215, 181, 0.3);
   --glass-shadow: 0 22px 68px rgba(0, 0, 0, 0.28);
-  --nav-scrim: rgba(18, 15, 13, 0.72);
+  --nav-bg: rgba(24, 21, 18, 0.92);
   --paper-bg: rgba(28, 25, 22, 0.96);
   --paper-border: rgba(238, 215, 181, 0.16);
   --page-overlay: rgba(3, 3, 4, 0.38);
@@ -63,6 +66,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  overflow-x: hidden;
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -108,23 +112,27 @@ img {
 
 .page-enter-active,
 .page-leave-active {
-  transition: transform var(--motion-base) var(--ease-out);
+  transition:
+    opacity var(--motion-fast) var(--ease-out),
+    transform var(--motion-base) var(--ease-out);
 }
 
 .page-enter-from {
-  transform: translate3d(0, 8px, 0) scale(0.996);
+  opacity: 0.98;
+  transform: translate3d(0, 4px, 0);
 }
 
 .page-leave-to {
-  transform: translate3d(0, -4px, 0) scale(0.998);
+  opacity: 0.98;
+  transform: translate3d(0, -2px, 0);
 }
 
 @keyframes float-in {
   from {
-    transform: translate3d(0, 16px, 0) scale(0.99);
+    transform: translate3d(0, 8px, 0);
   }
   to {
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -136,20 +144,84 @@ img {
 .social-card,
 .pagination,
 .navbar {
+  animation-delay: 0ms !important;
+  animation-duration: 260ms !important;
   backface-visibility: hidden;
-  transform: translateZ(0);
+  isolation: isolate;
 }
 
 @keyframes soft-pop {
   from {
-    opacity: 0;
-    transform: scale(0.96);
-    filter: blur(8px);
+    opacity: 0.98;
+    transform: scale(0.992);
   }
   to {
     opacity: 1;
     transform: scale(1);
-    filter: blur(0);
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --nav-height: 64px;
+    --page-x: 16px;
+    --page-top: 24px;
+    --page-bottom: 56px;
+    --radius: 16px;
+    --radius-sm: 12px;
+  }
+
+  .blog-page,
+  .friends-page,
+  .social-page,
+  .about-page,
+  .post-page {
+    width: 100%;
+    padding: var(--page-top) var(--page-x) var(--page-bottom);
+  }
+
+  .page-title {
+    margin-bottom: 22px;
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .page-enter-active,
+  .page-leave-active {
+    transition-duration: 120ms;
+  }
+
+  .page-title,
+  .about-card,
+  .loading,
+  .empty,
+  .blog-card,
+  .friend-card,
+  .social-card,
+  .pagination {
+    animation: none !important;
+  }
+
+  .navbar,
+  .about-card,
+  .loading,
+  .empty,
+  .blog-card,
+  .friend-card,
+  .social-card,
+  .pagination {
+    backdrop-filter: blur(8px) saturate(1.06) !important;
+    -webkit-backdrop-filter: blur(8px) saturate(1.06) !important;
+  }
+}
+
+@media (max-width: 390px) {
+  :root {
+    --page-x: 14px;
+  }
+
+  .page-title {
+    font-size: 26px;
   }
 }
 

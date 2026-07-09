@@ -54,7 +54,6 @@ import { siteConfig } from '../config/site.js'
   transition:
     background var(--motion-base) var(--ease-out),
     border-color var(--motion-base) var(--ease-out),
-    box-shadow var(--motion-base) var(--ease-out),
     transform var(--motion-base) var(--ease-out);
   display: block;
   box-shadow: var(--glass-shadow);
@@ -63,7 +62,7 @@ import { siteConfig } from '../config/site.js'
 }
 
 .friend-card:hover {
-  transform: translateY(-6px) scale(1.006);
+  transform: translateY(-3px);
   background: var(--glass-bg-strong);
   border-color: rgba(215, 189, 146, 0.5);
 }
@@ -88,5 +87,20 @@ import { siteConfig } from '../config/site.js'
   font-size: 13px;
   color: var(--accent-strong);
   font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .friends-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .friend-card {
+    padding: 20px;
+  }
+
+  .friend-card:hover {
+    transform: translateY(-3px);
+  }
 }
 </style>

@@ -17,7 +17,7 @@ import { siteConfig } from '../config/site.js'
   justify-content: center;
   min-height: calc(100vh - var(--nav-height));
   text-align: center;
-  padding: 40px 24px;
+  padding: var(--page-top) var(--page-x) var(--page-bottom);
   color: #fff;
   user-select: none;
 }
@@ -27,7 +27,7 @@ import { siteConfig } from '../config/site.js'
   font-weight: 800;
   margin: 0 0 16px;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.22);
-  animation: hero-title-in 900ms var(--ease-out) 120ms both;
+  animation: hero-title-in 520ms var(--ease-out) 80ms both;
 }
 
 .hero-bio {
@@ -36,41 +36,48 @@ import { siteConfig } from '../config/site.js'
   opacity: 0.94;
   max-width: 500px;
   line-height: 1.6;
-  animation: hero-copy-in 900ms var(--ease-out) 260ms both;
+  animation: hero-copy-in 520ms var(--ease-out) 150ms both;
 }
 
 @media (max-width: 640px) {
-  .hero-nickname {
-    font-size: 36px;
+  .home-hero {
+    justify-content: flex-start;
+    min-height: calc(100svh - var(--nav-height));
+    padding-top: max(96px, 18svh);
   }
+
+  .hero-nickname {
+    font-size: clamp(34px, 12vw, 46px);
+    line-height: 1.05;
+    margin-bottom: 14px;
+  }
+
   .hero-bio {
+    width: min(100%, 320px);
     font-size: 16px;
+    line-height: 1.7;
   }
 }
 
 @keyframes hero-title-in {
   from {
     opacity: 0;
-    transform: translateY(18px) scale(0.98);
-    filter: blur(12px);
+    transform: translate3d(0, 10px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes hero-copy-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
-    filter: blur(8px);
+    transform: translate3d(0, 8px, 0);
   }
   to {
     opacity: 0.94;
-    transform: translateY(0);
-    filter: blur(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 </style>

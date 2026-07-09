@@ -76,23 +76,14 @@ onMounted(() => {
   right: 0;
   z-index: 1000;
   padding: 11px 24px;
-  background: var(--glass-bg);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--nav-bg);
   border-bottom: 1px solid var(--glass-border);
-  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.07);
-  backdrop-filter: blur(18px) saturate(1.16);
-  -webkit-backdrop-filter: blur(18px) saturate(1.16);
-  animation: nav-reveal 620ms var(--ease-out) both;
-}
-
-.navbar::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -26px;
-  height: 26px;
-  pointer-events: none;
-  background: linear-gradient(to bottom, var(--nav-scrim), transparent);
+  box-shadow: 0 12px 34px rgba(22, 16, 10, 0.13);
+  backdrop-filter: blur(14px) saturate(1.12);
+  -webkit-backdrop-filter: blur(14px) saturate(1.12);
+  animation: nav-reveal 360ms var(--ease-out) both;
 }
 
 .nav-inner {
@@ -148,7 +139,6 @@ onMounted(() => {
     color 0.2s ease,
     background 0.2s ease,
     border-color 0.2s ease,
-    box-shadow 0.2s ease,
     transform 0.2s var(--ease-out);
   font-size: 15px;
   font-weight: 600;
@@ -221,36 +211,75 @@ onMounted(() => {
 
 @media (max-width: 700px) {
   .navbar {
-    padding: 8px 12px;
+    padding: 8px 10px;
   }
 
   .nav-inner {
-    height: auto;
-    align-items: flex-start;
-    flex-direction: column;
+    height: 48px;
     gap: 8px;
   }
 
+  .nav-brand {
+    flex: 0 0 auto;
+    max-width: 72px;
+    overflow: hidden;
+    font-size: 0;
+  }
+
+  .nav-brand::after {
+    content: 'Hana';
+    font-size: 17px;
+  }
+
+  .nav-actions,
+  .nav-links {
+    min-width: 0;
+  }
+
   .nav-actions {
-    width: 100%;
-    justify-content: space-between;
+    flex: 1;
+    gap: 6px;
   }
 
   .nav-links {
+    flex: 1;
+    gap: 2px;
     overflow-x: auto;
-    max-width: calc(100vw - 104px);
-    padding-bottom: 2px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-link::before,
+  .theme-toggle::before {
+    display: none;
   }
 
   .nav-link {
-    padding: 8px 12px;
+    flex: 0 0 auto;
+    padding: 8px 10px;
     font-size: 13px;
+    line-height: 1;
     white-space: nowrap;
   }
 
   .theme-toggle {
-    width: 42px;
-    height: 42px;
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 390px) {
+  .nav-brand {
+    display: none;
+  }
+
+  .nav-link {
+    padding-inline: 9px;
   }
 }
 </style>

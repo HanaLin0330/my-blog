@@ -190,19 +190,12 @@ onUnmounted(stopRotation)
   object-fit: cover;
   opacity: 0;
   transform: scale(1.04);
-  transition:
-    opacity 1.05s var(--ease-out),
-    transform 1.8s var(--ease-soft);
-  will-change: opacity, transform;
+  transition: opacity 560ms var(--ease-out);
+  will-change: opacity;
 }
 
 .bg-image.loaded img {
   opacity: 1;
-  animation: background-drift 24s ease-in-out infinite alternate;
-}
-
-.bg-wrapper.is-route-changing .bg-image.loaded img {
-  animation-play-state: paused;
 }
 
 .bg-overlay {
@@ -225,16 +218,8 @@ onUnmounted(stopRotation)
 
 @media (max-width: 700px) {
   .bg-content {
-    padding-top: 112px;
+    padding-top: var(--nav-height);
   }
 }
 
-@keyframes background-drift {
-  0% {
-    transform: scale(1.04) translate3d(-0.8%, -0.6%, 0);
-  }
-  100% {
-    transform: scale(1.09) translate3d(0.8%, 0.6%, 0);
-  }
-}
 </style>

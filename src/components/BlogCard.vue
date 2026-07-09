@@ -51,7 +51,6 @@ const displayDate = computed(() => {
   transition:
     background var(--motion-base) var(--ease-out),
     border-color var(--motion-base) var(--ease-out),
-    box-shadow var(--motion-base) var(--ease-out),
     transform var(--motion-base) var(--ease-out);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
@@ -68,22 +67,17 @@ const displayDate = computed(() => {
     radial-gradient(circle at 16% 0%, rgba(255, 255, 255, 0.24), transparent 32%),
     linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.12) 46%, transparent 72%);
   opacity: 0;
-  transform: translateX(-18px);
-  transition:
-    opacity var(--motion-base) var(--ease-out),
-    transform var(--motion-slow) var(--ease-out);
+  transition: opacity var(--motion-base) var(--ease-out);
 }
 
 .blog-card:hover {
-  transform: translateY(-6px) scale(1.006);
+  transform: translateY(-3px);
   background: var(--glass-bg-strong);
   border-color: rgba(215, 189, 146, 0.5);
-  box-shadow: 0 30px 88px rgba(35, 27, 18, 0.22);
 }
 
 .blog-card:hover::before {
   opacity: 1;
-  transform: translateX(0);
 }
 
 .card-title {
@@ -142,5 +136,38 @@ const displayDate = computed(() => {
 
 .blog-card:hover .read-more {
   transform: translateX(4px);
+}
+
+@media (max-width: 640px) {
+  .blog-card {
+    margin-bottom: 16px;
+    padding: 20px;
+    border-radius: var(--radius);
+  }
+
+  .card-title {
+    font-size: 19px;
+    line-height: 1.35;
+  }
+
+  .card-meta {
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  .card-tags {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .tag {
+    flex: 0 0 auto;
+  }
+
+  .card-summary {
+    font-size: 14px;
+    line-height: 1.65;
+  }
 }
 </style>

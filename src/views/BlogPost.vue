@@ -1,7 +1,7 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { fetchPost } from '../utils/api.js'
+import { getPost } from '../utils/posts.js'
 import { renderMarkdown } from '../utils/markdown.js'
 
 const route = useRoute()
@@ -20,13 +20,13 @@ const displayDate = computed(() => {
   }
 })
 
-async function loadPost() {
+function loadPost() {
   loading.value = true
   try {
     const id = route.params.id
-    const data = await fetchPost(id)
+    const data = getPost(id)
     post.value = data
-    htmlContent.value = renderMarkdown(data.content || '')
+    htmlContent.value = data ? renderMarkdown(data.content || '') : ''
   } catch (e) {
     console.error('加载文章失败:', e)
   } finally {
@@ -34,7 +34,8 @@ async function loadPost() {
   }
 }
 
-onMounted(loadPost)
+// 路由参数变化时重新加载
+watch(() => route.params.id, loadPost, { immediate: true })
 </script>
 
 <template>
@@ -148,6 +149,7 @@ onMounted(loadPost)
   border-radius: 10px;
   padding: 20px;
   overflow-x: auto;
+  max-width: 100%;
   margin: 0 0 16px;
 }
 .post-body :deep(pre code) {
@@ -173,6 +175,8 @@ onMounted(loadPost)
   width: 100%;
   border-collapse: collapse;
   margin: 16px 0;
+  display: block;
+  overflow-x: auto;
 }
 .post-body :deep(th), .post-body :deep(td) {
   border: 1px solid var(--paper-border);
@@ -198,9 +202,44 @@ onMounted(loadPost)
 }
 
 @media (max-width: 640px) {
-  .post-page { padding: 24px 16px 56px; }
-  .post-container { padding: 28px 20px; }
-  .post-title { font-size: 26px; }
-  .post-body { font-size: 15px; }
+  .post-container {
+    padding: 24px 18px;
+    border-radius: var(--radius);
+  }
+
+  .post-header {
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+  }
+
+  .post-title {
+    font-size: 25px;
+    line-height: 1.32;
+    overflow-wrap: anywhere;
+  }
+
+  .post-meta {
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  .post-body {
+    font-size: 15px;
+    line-height: 1.78;
+  }
+
+  .post-body :deep(h1) { font-size: 24px; }
+  .post-body :deep(h2) { font-size: 21px; }
+  .post-body :deep(h3) { font-size: 18px; }
+
+  .post-body :deep(pre) {
+    margin-inline: -6px;
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .post-body :deep(blockquote) {
+    padding: 10px 14px;
+  }
 }
 </style>
